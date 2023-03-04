@@ -2,12 +2,20 @@ package main
 
 import (
 	"net/http"
+	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
+
+	err := godotenv.Load()
+	if err != nil {
+		panic("Error loading .env file")
+	}
+
 	// インスタンスを作成
 	e := echo.New()
 
@@ -15,8 +23,9 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	// CORSの設定
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:3000"},
+		AllowOrigins: []string{os.Getenv("CLIENT_URL_LOCAL"), os.Getenv("CLIENT_URL_REMOTE")},
 		AllowMethods: []string{
 			http.MethodGet,
 			http.MethodPut,
