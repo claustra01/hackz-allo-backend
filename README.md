@@ -9,7 +9,7 @@
 - **masterブランチ/developブランチには絶対に直接pushしないこと**
 
 # ローカルで実行
-- `go run main.go`
+- `air`
 - http://localhost:1323/ にアクセス
 
 # 更新内容を統合
