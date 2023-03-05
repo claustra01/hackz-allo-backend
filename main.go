@@ -37,8 +37,8 @@ func main() {
 	// ルートを設定
 	e.GET("/", hello) // ローカル環境の場合、http://localhost:1323/ にGETアクセスされるとhelloハンドラーを実行する
 
-	// サーバーをポート番号1323で起動
-	e.Logger.Fatal(e.Start(":1323"))
+	// サーバーをポート番号8080で起動
+	e.Logger.Fatal(e.Start(":8080"))
 }
 
 // ハンドラーを定義
