@@ -1,13 +1,27 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
+
+func gormConnect() *gorm.DB {
+	dsn := "host=db user=postgres password=password dbname=database port=5432 sslmode=disable TimeZone=Asia/Tokyo"
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		fmt.Println("DB error(Init): ", err)
+	} else {
+		fmt.Println("DB Connected!")
+	}
+	return db
+}
 
 func main() {
 
@@ -15,6 +29,10 @@ func main() {
 	if err != nil {
 		panic("Error loading .env file")
 	}
+
+	var a []int
+	db := gormConnect()
+	db.Find(&a)
 
 	// インスタンスを作成
 	e := echo.New()
