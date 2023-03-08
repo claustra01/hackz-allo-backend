@@ -1,7 +1,7 @@
 FROM golang:1.19.4-alpine
 ENV TZ /usr/share/zoneinfo/Asia/Tokyo
 
-RUN apk add --update && apk add git
+RUN apk add --update && apk add git && apk add postgresql-client
 
 ENV ROOT=/go/src/app
 WORKDIR ${ROOT}
