@@ -9,15 +9,23 @@ resources:
 - repo: self
 
 variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '6028dd49-e33f-4335-b0f1-69440b986e3e'
-  imageRepository: 'hackzallobackendcontainer'
-  containerRegistry: 'hackzallobackendcontainer.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
+  - group: ACR_Valiables
+  - name: imageName
+    value: myimage:$(Build.buildId)
+  - name: acrId
+    value: $(ACR_USERNAME)
+  - name: acrPassword
+    value: $(ACR_PASSWORD)
+  - name: acrServer
+    value: $(ACR_SERVER)
 
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+steps:
+  - script: |
+      docker build -t $(acrServer)/$(imageName) .
+      docker login -u $(acrId) -p $(acrPassword) $(acrUrl)
+      docker push $(acrServer)/$(imageName)
+
+    displayName: Build Docker image
 
 stages:
 - stage: Build
