@@ -9,6 +9,7 @@
 - **masterブランチ/developブランチには絶対に直接pushしないこと**
 
 # ローカルで実行
+- `go install github.com/cosmtrek/air@latest`
 - `air`
 - http://localhost:8080/ にアクセス
 
