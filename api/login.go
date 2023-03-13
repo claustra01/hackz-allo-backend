@@ -8,14 +8,23 @@ import (
 	"hackz-allo/database"
 )
 
+type oLogIn struct {
+	Id       string `json:"user_id"`
+	Password string `json:"password"`
+}
+
 func LogIn(c echo.Context) error {
 
 	db := database.Connect()
 	obj := new(database.Response)
 
 	// クエリ展開
-	id := c.FormValue("user_id")
-	password := c.FormValue("password")
+	o := new(oLogIn)
+	if err := c.Bind(o); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+	id := o.Id
+	password := o.Password
 
 	// ログイン判定
 	array := []database.User{}
@@ -24,12 +33,12 @@ func LogIn(c echo.Context) error {
 		if u.UserId == id {
 			if u.Password == password {
 				// 成功
-				obj.Status = true
-				obj.Message = "Login successful!"
+				obj.Result = "OK"
+				obj.Message = u.Id.String()
 				return c.JSON(http.StatusOK, obj)
 			} else {
 				// パスワードが違う時
-				obj.Status = false
+				obj.Result = "Failed"
 				obj.Message = "Password is incorrect."
 				return c.JSON(http.StatusOK, obj)
 			}
@@ -37,7 +46,7 @@ func LogIn(c echo.Context) error {
 	}
 
 	// ユーザーが見つからない時
-	obj.Status = false
+	obj.Result = "Failed"
 	obj.Message = "User not found."
 	return c.JSON(http.StatusOK, obj)
 }

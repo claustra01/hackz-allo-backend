@@ -1,6 +1,9 @@
 package database
 
+import "github.com/google/uuid"
+
 type User struct {
+	Id       uuid.UUID
 	UserId   string
 	Name     string
 	Password string
@@ -15,6 +18,6 @@ type Post struct {
 }
 
 type Response struct {
-	Status  bool
+	Result  string
 	Message string
 }
