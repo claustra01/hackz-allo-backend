@@ -13,8 +13,3 @@ type Post struct {
 	Time  string
 	User  User
 }
-
-type Response struct {
-	Status  bool
-	Message string
-}
