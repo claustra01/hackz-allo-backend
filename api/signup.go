@@ -4,12 +4,14 @@ import (
 	"hackz-allo/database"
 	"net/http"
 
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
 
-type Json struct {
-	Status  bool
-	Message string
+type oSignUp struct {
+	Id       string `json:"user_id"`
+	Name     string `json:"name"`
+	Password string `json:"password"`
 }
 
 func SignUp(c echo.Context) error {
@@ -18,9 +20,13 @@ func SignUp(c echo.Context) error {
 	obj := new(Json)
 
 	// クエリ展開
-	id := c.FormValue("user_id")
-	name := c.FormValue("name")
-	password := c.FormValue("password")
+	o := new(oSignUp)
+	if err := c.Bind(o); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+	id := o.Id
+	name := o.Name
+	password := o.Password
 
 	// ユーザー名重複チェック
 	array := []database.User{}
@@ -32,19 +38,21 @@ func SignUp(c echo.Context) error {
 		}
 	}
 	if dup {
-		obj.Status = false
-		obj.Message = "This id is used."
+		obj.Result = "Failed"
+		obj.Message = "ID: " + id + " is used."
 		return c.JSON(http.StatusOK, obj)
 	}
 
 	// ユーザー登録
+	uuidObj, _ := uuid.NewUUID()
 	user := new(database.User)
+	user.Id = uuidObj
 	user.UserId = id
 	user.Name = name
 	user.Password = password
 	db.Create(&user)
 
-	obj.Status = true
-	obj.Message = id + " is registered!"
+	obj.Result = "OK"
+	obj.Message = "ID: " + id + " is registered!"
 	return c.JSON(http.StatusOK, obj)
 }

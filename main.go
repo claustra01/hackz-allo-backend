@@ -35,13 +35,15 @@ func main() {
 			http.MethodPost,
 			http.MethodDelete,
 		},
+		AllowCredentials: true,
 	}))
 
 	// DB初期化 開発用
 	e.GET("/api/initialization", api.Initialization)
 
 	// 認証
-	e.GET("/api/login", api.LogIn)
+	e.GET("/api/auth", api.Auth)
+	e.POST("/api/login", api.LogIn)
 	e.POST("/api/signup", api.SignUp)
 
 	// サーバー起動
