@@ -50,7 +50,7 @@ func main() {
 	e.GET("api/getuser", api.GetUser)
 
 	// 投稿
-	e.POST("api/newpost", api.NewPost)
+	e.POST("api/createpost", api.CreatePost)
 
 	// サーバー起動
 	e.Logger.Fatal(e.Start(":8080"))
