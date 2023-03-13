@@ -1,4 +1,4 @@
-module hackz-aro
+module hackz-allo
 
 go 1.19
 
