@@ -34,7 +34,7 @@ func LogIn(c echo.Context) error {
 			if u.Password == password {
 				// 成功
 				obj.Result = "OK"
-				obj.Message = "Login successful!"
+				obj.Message = u.Id.String()
 				return c.JSON(http.StatusOK, obj)
 			} else {
 				// パスワードが違う時
