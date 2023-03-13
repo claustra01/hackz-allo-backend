@@ -46,6 +46,12 @@ func main() {
 	e.POST("/api/login", api.LogIn)
 	e.POST("/api/signup", api.SignUp)
 
+	// ユーザー
+	e.GET("api/getuser", api.GetUser)
+
+	// 投稿
+	e.POST("api/newpost", api.NewPost)
+
 	// サーバー起動
 	e.Logger.Fatal(e.Start(":8080"))
 }
