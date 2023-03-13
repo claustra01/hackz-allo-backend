@@ -54,8 +54,12 @@ func main() {
 		},
 	}))
 
-	// ルートを設定
+	// DB初期化 開発用
 	e.GET("/initialization", api.Initialization)
+
+	// 認証
+	e.GET("/login", api.LogIn)
+	e.GET("/signup", api.SignUp)
 
 	// サーバーをポート番号8080で起動
 	e.Logger.Fatal(e.Start(":8080"))
