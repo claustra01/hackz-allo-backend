@@ -54,11 +54,11 @@ func main() {
 	}))
 
 	// DB初期化 開発用
-	e.GET("/initialization", api.Initialization)
+	e.GET("/api/initialization", api.Initialization)
 
 	// 認証
-	e.GET("/login", api.LogIn)
-	e.GET("/signup", api.SignUp)
+	e.GET("/api/login", api.LogIn)
+	e.GET("/api/signup", api.SignUp)
 
 	// サーバー起動
 	e.Logger.Fatal(e.Start(":8080"))
