@@ -1,6 +1,9 @@
 package database
 
+import "github.com/google/uuid"
+
 type User struct {
+	Id       uuid.UUID
 	UserId   string
 	Name     string
 	Password string

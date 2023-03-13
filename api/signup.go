@@ -4,6 +4,7 @@ import (
 	"hackz-allo/database"
 	"net/http"
 
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
 
@@ -43,7 +44,9 @@ func SignUp(c echo.Context) error {
 	}
 
 	// ユーザー登録
+	uuidObj, _ := uuid.NewUUID()
 	user := new(database.User)
+	user.Id = uuidObj
 	user.UserId = id
 	user.Name = name
 	user.Password = password
