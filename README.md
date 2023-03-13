@@ -22,6 +22,11 @@
 - コンテナを立てた状態で`docker-compose exec db bash`
 - `psql -h localhost -p 5432 -U postgres`
 
+# 手動デプロイ
+- `docker build -t hackz-allo-backend .`
+- `docker tag hackz-allo-backend hackzallobackendcontainer.azurecr.io/hackz-allo-backend`
+- `docker push hackzallobackendcontainer.azurecr.io/hackz-allo-backend`
+
 # 更新内容を統合
 - commit/pushを完了させる
 - **developブランチ**にプルリクエストを出す
