@@ -10,6 +10,8 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+
+	"hackz-allo/api"
 )
 
 func gormConnect() *gorm.DB {
@@ -53,13 +55,8 @@ func main() {
 	}))
 
 	// ルートを設定
-	e.GET("/", hello) // ローカル環境の場合、http://localhost:1323/ にGETアクセスされるとhelloハンドラーを実行する
+	e.GET("/initialization", api.Initialization)
 
 	// サーバーをポート番号8080で起動
 	e.Logger.Fatal(e.Start(":8080"))
-}
-
-// ハンドラーを定義
-func hello(c echo.Context) error {
-	return c.String(http.StatusOK, "Connected!")
 }
