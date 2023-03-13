@@ -24,12 +24,12 @@ func LogIn(c echo.Context) error {
 		if u.UserId == id {
 			if u.Password == password {
 				// 成功
-				obj.Status = true
+				obj.Result = "OK"
 				obj.Message = "Login successful!"
 				return c.JSON(http.StatusOK, obj)
 			} else {
 				// パスワードが違う時
-				obj.Status = false
+				obj.Result = "Failed"
 				obj.Message = "Password is incorrect."
 				return c.JSON(http.StatusOK, obj)
 			}
@@ -37,7 +37,7 @@ func LogIn(c echo.Context) error {
 	}
 
 	// ユーザーが見つからない時
-	obj.Status = false
+	obj.Result = "Failed"
 	obj.Message = "User not found."
 	return c.JSON(http.StatusOK, obj)
 }

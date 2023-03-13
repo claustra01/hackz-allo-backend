@@ -15,6 +15,6 @@ type Post struct {
 }
 
 type Response struct {
-	Status  bool
+	Result  string
 	Message string
 }

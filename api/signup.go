@@ -27,7 +27,7 @@ func SignUp(c echo.Context) error {
 		}
 	}
 	if dup {
-		obj.Status = false
+		obj.Result = "Failed"
 		obj.Message = "This id is used."
 		return c.JSON(http.StatusOK, obj)
 	}
@@ -39,7 +39,7 @@ func SignUp(c echo.Context) error {
 	user.Password = password
 	db.Create(&user)
 
-	obj.Status = true
+	obj.Result = "OK"
 	obj.Message = id + " is registered!"
 	return c.JSON(http.StatusOK, obj)
 }
