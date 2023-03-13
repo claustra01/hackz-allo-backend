@@ -15,7 +15,7 @@ import (
 )
 
 func gormConnect() *gorm.DB {
-	dsn := "host=db user=postgres password=password dbname=database port=5432 sslmode=disable TimeZone=Asia/Tokyo"
+	dsn := "postgres://" + os.Getenv("AZURE_PG_USER") + ":" + os.Getenv("AZURE_PG_PASSWORD") + "@hackzallopostgres.postgres.database.azure.com/postgres?sslmode=require"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		fmt.Println("DB error(Init): ", err)
