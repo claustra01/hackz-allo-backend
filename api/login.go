@@ -14,8 +14,8 @@ func LogIn(c echo.Context) error {
 	obj := new(database.Response)
 
 	// クエリ展開
-	id := c.FormValue("user_id")
-	password := c.FormValue("password")
+	id := c.QueryParam("user_id")
+	password := c.QueryParam("password")
 
 	// ログイン判定
 	array := []database.User{}

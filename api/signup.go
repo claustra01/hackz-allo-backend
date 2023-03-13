@@ -13,9 +13,9 @@ func SignUp(c echo.Context) error {
 	obj := new(database.Response)
 
 	// クエリ展開
-	id := c.FormValue("user_id")
-	name := c.FormValue("name")
-	password := c.FormValue("password")
+	id := c.QueryParam("user_id")
+	name := c.QueryParam("name")
+	password := c.QueryParam("password")
 
 	// ユーザー名重複チェック
 	array := []database.User{}
@@ -28,7 +28,7 @@ func SignUp(c echo.Context) error {
 	}
 	if dup {
 		obj.Result = "Failed"
-		obj.Message = "This id is used."
+		obj.Message = "ID: " + id + " is used."
 		return c.JSON(http.StatusOK, obj)
 	}
 
