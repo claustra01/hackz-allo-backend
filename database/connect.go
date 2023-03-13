@@ -15,7 +15,7 @@ func Connect() *gorm.DB {
 	if err != nil {
 		panic(err)
 	} else {
-		fmt.Printf("===== DB Connected =====")
+		fmt.Printf("===== DB Connected =====\n")
 	}
 	db.Logger = db.Logger.LogMode(logger.Info)
 	return db
