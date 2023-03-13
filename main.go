@@ -42,7 +42,7 @@ func main() {
 
 	// 認証
 	e.GET("/api/login", api.LogIn)
-	e.GET("/api/signup", api.SignUp)
+	e.POST("/api/signup", api.SignUp)
 
 	// サーバー起動
 	e.Logger.Fatal(e.Start(":8080"))
