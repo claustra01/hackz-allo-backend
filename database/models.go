@@ -10,11 +10,11 @@ type User struct {
 }
 
 type Post struct {
-	Id    int64
-	Title string
-	Body  string
-	Time  string
-	User  User
+	Id     uuid.UUID
+	Title  string
+	Body   string
+	Time   string
+	UserId string
 }
 
 type Response struct {
