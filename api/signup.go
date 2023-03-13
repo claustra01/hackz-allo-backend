@@ -7,15 +7,10 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type Json struct {
-	Status  bool
-	Message string
-}
-
 func SignUp(c echo.Context) error {
 
 	db := database.Connect()
-	obj := new(Json)
+	obj := new(database.Response)
 
 	// クエリ展開
 	id := c.FormValue("user_id")
