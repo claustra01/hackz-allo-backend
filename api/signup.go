@@ -7,15 +7,25 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+type oSignUp struct {
+	Id       string `json:"user_id"`
+	Name     string `json:"name"`
+	Password string `json:"password"`
+}
+
 func SignUp(c echo.Context) error {
 
 	db := database.Connect()
 	obj := new(database.Response)
 
 	// クエリ展開
-	id := c.QueryParam("user_id")
-	name := c.QueryParam("name")
-	password := c.QueryParam("password")
+	o := new(oSignUp)
+	if err := c.Bind(o); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+	id := o.Id
+	name := o.Name
+	password := o.Password
 
 	// ユーザー名重複チェック
 	array := []database.User{}
