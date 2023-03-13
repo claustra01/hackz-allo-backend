@@ -7,21 +7,9 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 
 	"hackz-allo/api"
 )
-
-func gormConnect() *gorm.DB {
-	dsn := "postgres://" + os.Getenv("AZURE_PG_USER") + ":" + os.Getenv("AZURE_PG_PASSWORD") + "@hackzallopostgres.postgres.database.azure.com/postgres?sslmode=require"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil {
-		panic(err)
-	}
-	return db
-}
 
 func main() {
 
@@ -30,10 +18,6 @@ func main() {
 	if err != nil {
 		panic("Error loading .env file")
 	}
-
-	// DB初期設定
-	db := gormConnect()
-	db.Logger = db.Logger.LogMode(logger.Info)
 
 	// インスタンス作成
 	e := echo.New()
