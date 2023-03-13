@@ -42,6 +42,7 @@ func main() {
 	e.GET("/api/initialization", api.Initialization)
 
 	// 認証
+	e.GET("/api/auth", api.Auth)
 	e.POST("/api/login", api.LogIn)
 	e.POST("/api/signup", api.SignUp)
 
