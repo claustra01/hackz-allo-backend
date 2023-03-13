@@ -1,8 +1,8 @@
 package database
 
 type User struct {
-	Userid   string
-	Username string
+	UserId   string
+	Name     string
 	Password string
 }
 
