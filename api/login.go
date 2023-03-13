@@ -4,8 +4,6 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-
-	"hackz-allo/database"
 )
 
 type oLogIn struct {

@@ -17,7 +17,7 @@ type oSignUp struct {
 func SignUp(c echo.Context) error {
 
 	db := database.Connect()
-	obj := new(database.Response)
+	obj := new(Json)
 
 	// クエリ展開
 	o := new(oSignUp)
