@@ -53,6 +53,7 @@ func main() {
 	e.POST("api/createpost", api.CreatePost)
 	e.PUT("api/editpost", api.EditPost)
 	e.DELETE("api/deletepost", api.DeletePost)
+	e.GET("api/gettimeine", api.GetTimeLine)
 
 	// サーバー起動
 	e.Logger.Fatal(e.Start(":8080"))
