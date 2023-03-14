@@ -8,18 +8,18 @@ import (
 	"hackz-allo/database"
 )
 
-type oLogIn struct {
-	Id       string `json:"user_id"`
-	Password string `json:"password"`
-}
-
 func LogIn(c echo.Context) error {
+
+	type json struct {
+		Id       string `json:"user_id"`
+		Password string `json:"password"`
+	}
 
 	db := database.Connect()
 	obj := new(database.Response)
 
 	// クエリ展開
-	o := new(oLogIn)
+	o := new(json)
 	if err := c.Bind(o); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}

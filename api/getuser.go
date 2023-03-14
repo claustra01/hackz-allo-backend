@@ -8,12 +8,12 @@ import (
 	"hackz-allo/database"
 )
 
-type oGetUser struct {
-	UserId string
-	Name   string
-}
-
 func GetUser(c echo.Context) error {
+
+	type json struct {
+		UserId string
+		Name   string
+	}
 
 	db := database.Connect()
 	token := c.QueryParam("token")
@@ -23,7 +23,7 @@ func GetUser(c echo.Context) error {
 	db.Find(&array)
 	for _, u := range array {
 		if u.Id.String() == token {
-			obj := new(oGetUser)
+			obj := new(json)
 			obj.UserId = u.UserId
 			obj.Name = u.Name
 			return c.JSON(http.StatusOK, obj)
