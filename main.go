@@ -51,6 +51,8 @@ func main() {
 
 	// 投稿
 	e.POST("api/createpost", api.CreatePost)
+	e.PUT("api/editpost", api.EditPost)
+	e.DELETE("api/deletepost", api.DeletePost)
 
 	// サーバー起動
 	e.Logger.Fatal(e.Start(":8080"))
