@@ -15,7 +15,10 @@ func DeletePost(c echo.Context) error {
 	id := c.QueryParam("id")
 
 	// 投稿削除
+	p := new(database.Post)
+	db.Where("id = ?", id).First(&p)
+	db.Where("id = ?", id).Delete(&database.Post{})
 
-	// OKを返す
-	return c.String(http.StatusOK, "OK")
+	// 削除した投稿を返す
+	return c.JSON(http.StatusOK, p)
 }
