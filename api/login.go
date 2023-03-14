@@ -1,23 +1,29 @@
 package api
 
 import (
+	"hackz-allo/database"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
 
-type oLogIn struct {
-	Id       string `json:"user_id"`
-	Password string `json:"password"`
-}
-
 func LogIn(c echo.Context) error {
 
+	type json struct {
+		Id       string `json:"user_id"`
+		Password string `json:"password"`
+	}
+
+	type response struct {
+		Result  string
+		Message string
+	}
+
 	db := database.Connect()
-	obj := new(database.Response)
+	obj := new(response)
 
 	// クエリ展開
-	o := new(oLogIn)
+	o := new(json)
 	if err := c.Bind(o); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
