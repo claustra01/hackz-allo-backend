@@ -8,19 +8,24 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type oSignUp struct {
-	Id       string `json:"user_id"`
-	Name     string `json:"name"`
-	Password string `json:"password"`
-}
-
 func SignUp(c echo.Context) error {
 
+	type json struct {
+		Id       string `json:"user_id"`
+		Name     string `json:"name"`
+		Password string `json:"password"`
+	}
+
+	type response struct {
+		Result  string
+		Message string
+	}
+
 	db := database.Connect()
-	obj := new(Json)
+	obj := new(response)
 
 	// クエリ展開
-	o := new(oSignUp)
+	o := new(json)
 	if err := c.Bind(o); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}

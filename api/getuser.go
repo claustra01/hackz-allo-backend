@@ -7,18 +7,26 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func Auth(c echo.Context) error {
+func GetUser(c echo.Context) error {
+
+	type json struct {
+		UserId string
+		Name   string
+	}
 
 	db := database.Connect()
 	token := c.QueryParam("token")
 
-	// 認証チェック
+	// ユーザー情報取得
 	array := []database.User{}
 	db.Find(&array)
 	for _, u := range array {
 		if u.Id.String() == token {
-			return c.String(http.StatusOK, "OK")
+			obj := new(json)
+			obj.UserId = u.UserId
+			obj.Name = u.Name
+			return c.JSON(http.StatusOK, obj)
 		}
 	}
-	return c.String(http.StatusOK, "Failed")
+	return c.JSON(http.StatusOK, nil)
 }
