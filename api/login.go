@@ -1,11 +1,10 @@
 package api
 
 import (
+	"hackz-allo/database"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-
-	"hackz-allo/database"
 )
 
 func LogIn(c echo.Context) error {
