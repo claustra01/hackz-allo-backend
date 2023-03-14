@@ -1,0 +1,51 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy container app to Azure Web App - hackzallobackend
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: 'ubuntu-latest'
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Log in to registry
+      uses: docker/login-action@v1
+      with:
+        registry: https://hackzallobackendcontainer.azurecr.io/
+        username: ${{ secrets.AzureAppService_ContainerUsername_ea17c4a451f14c61ad193edff3522d42 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_567e7d3fe283476089ae52511a0b6f79 }}
+
+    - name: Build and push container image to registry
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: hackzallobackendcontainer.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_ea17c4a451f14c61ad193edff3522d42 }}/hackz-allo-backend:${{ github.sha }}
+        file: ./Dockerfile
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'hackzallobackend'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_e93a171709764ffd99e8e7389bcbaa3c }}
+        images: 'hackzallobackendcontainer.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_ea17c4a451f14c61ad193edff3522d42 }}/hackz-allo-backend:${{ github.sha }}'
