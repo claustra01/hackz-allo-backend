@@ -16,8 +16,3 @@ type Post struct {
 	Time   string
 	UserId string
 }
-
-type Response struct {
-	Result  string
-	Message string
-}

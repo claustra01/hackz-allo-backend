@@ -15,8 +15,13 @@ func LogIn(c echo.Context) error {
 		Password string `json:"password"`
 	}
 
+	type response struct {
+		Result  string
+		Message string
+	}
+
 	db := database.Connect()
-	obj := new(database.Response)
+	obj := new(response)
 
 	// クエリ展開
 	o := new(json)
